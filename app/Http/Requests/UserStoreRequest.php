@@ -29,6 +29,7 @@ class UserStoreRequest extends FormRequest
             'email' => 'required',
             'phone_number' => 'nullable',
             'others' => 'nullable',
+            'group_id' => ['nullable', 'exists:groups,id']
         ];
     }
 }

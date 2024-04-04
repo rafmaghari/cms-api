@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /** Options */
     Route::get('leader-options', [CommonOptionController::class, 'leaders']);
     Route::get('organization-options', [CommonOptionController::class, 'organizations']);
+    Route::get('group-options', [CommonOptionController::class, 'groups']);
 
     /** Groups */
     Route::post('groups/deactivate', DeactivateGroupController::class);

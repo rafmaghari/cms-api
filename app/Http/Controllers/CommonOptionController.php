@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\OptionResource;
+use App\Models\Group;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -26,5 +27,14 @@ class CommonOptionController extends Controller
             ->get();
 
         return OptionResource::collection($organizations);
+    }
+
+    public function groups(): AnonymousResourceCollection
+    {
+        $groups = QueryBuilder::for(Group::class)
+            ->selectRaw("id as value, name as label")
+            ->get();
+
+        return OptionResource::collection($groups);
     }
 }

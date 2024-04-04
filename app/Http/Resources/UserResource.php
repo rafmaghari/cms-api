@@ -24,6 +24,8 @@ class UserResource extends JsonResource
             'others' => $this->others,
             'phone_number' => $this->phone_number,
             'facebook_url' => $this->facebook_url,
+            'group_name' => $this->group?->name,
+            'group_id' => $this->group_id,
         ];
     }
 }
