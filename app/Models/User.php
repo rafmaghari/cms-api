@@ -26,6 +26,8 @@ class User extends Authenticatable
         'facebook_url',
         'joined_at',
         'created_by',
+        'password',
+        'others'
     ];
 
 

@@ -28,6 +28,7 @@ class UserStoreRequest extends FormRequest
             'facebook_url' => 'nullable',
             'email' => 'required',
             'phone_number' => 'nullable',
+            'others' => 'nullable',
         ];
     }
 }

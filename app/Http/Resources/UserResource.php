@@ -17,10 +17,13 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'full_name' => $this->full_name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
             'joined_at' => $this->joined_at,
             'email' => $this->email,
             'others' => $this->others,
             'phone_number' => $this->phone_number,
+            'facebook_url' => $this->facebook_url,
         ];
     }
 }

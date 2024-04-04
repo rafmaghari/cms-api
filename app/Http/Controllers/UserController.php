@@ -20,7 +20,12 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-        $user = User::create($request->validated() + ['created_by' => auth()->id()]);
+        $user = User::create($request->validated() +
+            [
+                'created_by' => auth()->id(),
+                'password' => bcrypt('password')
+            ]
+        );
 
         return new UserResource($user);
     }
