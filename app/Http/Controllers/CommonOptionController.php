@@ -37,4 +37,14 @@ class CommonOptionController extends Controller
 
         return OptionResource::collection($groups);
     }
+
+    public function users()
+    {
+        $users = QueryBuilder::for(User::class)
+            ->selectRaw("id as value, name as label")
+            ->get();
+
+        return OptionResource::collection($users);
+
+    }
 }

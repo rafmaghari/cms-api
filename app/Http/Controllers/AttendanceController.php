@@ -2,64 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AttedanceStoreRequest;
+use App\Http\Resources\AttendanceResource;
 use App\Models\Attendance;
-use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Traits\ApiResponse;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ApiResponse;
+
     public function index()
     {
-        //
+        $attendances = QueryBuilder::for(Attendance::class)
+            ->paginate(10);
+
+        return AttendanceResource::collection($attendances);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(AttedanceStoreRequest $request)
     {
-        //
+        $event = Event::find($request->event_id);
+
+        $presentUsers = $request->user_ids;
+
+        foreach ($presentUsers as $user) {
+            Attendance::create([
+                'event_id' => $event->id,
+                'user_id' => $user,
+                'created_by' => auth()->id()
+            ]);
+        }
+
+        return $this->successResponse([], 'Attendance saved successfully');
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(AttedanceStoreRequest $request, Attendance $attendance)
     {
-        //
+        $attendance->update($request->validated());
+
+        return AttendanceResource::make($attendance);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Attendance $attendance)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Attendance $attendance)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Attendance $attendance)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Attendance $attendance)
     {
-        //
+        $attendance->delete();
+
+        return $this->emptyDataResponse();
     }
 }

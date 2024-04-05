@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Traits\ApiResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
+    use ApiResponse;
+
     public function index()
     {
         $users = QueryBuilder::for(User::class)
@@ -46,8 +49,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response()->noContent();
+        return $this->emptyDataResponse();
     }
-
-
 }

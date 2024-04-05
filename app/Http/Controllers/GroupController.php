@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GroupStoreRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use App\Traits\ApiResponse;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class GroupController extends Controller
 {
+    use ApiResponse;
 
     public function index()
     {
@@ -46,6 +48,6 @@ class GroupController extends Controller
     {
         $group->delete();
 
-        return response()->noContent();
+        return $this->emptyDataResponse();
     }
 }

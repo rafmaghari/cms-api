@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrganizationStoreRequest;
 use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -12,6 +13,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class OrganizationController extends Controller
 {
+    use ApiResponse;
+
     public function index(): AnonymousResourceCollection
     {
         $organizations = QueryBuilder::for(Organization::class)
@@ -47,6 +50,6 @@ class OrganizationController extends Controller
     {
         $organization->delete();
 
-        return response()->noContent();
+        return $this->emptyDataResponse();
     }
 }
